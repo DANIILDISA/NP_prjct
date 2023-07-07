@@ -1,0 +1,175 @@
+{% extends 'flatpages/default.html' %}
+{% load custom_filters %}
+
+{% block title %}
+Filtered Posts
+{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <h1 class="page-title">Filtered posts: {{ category }}</h1>
+    <div class="post-list">
+        {% for post in posts %}
+        <div class="post">
+            <h2 class="post-title">
+                <a class="post-link" href="{% url 'post-detail' post.pk %}">{{ post.title|censor_obscene }}</a>
+            </h2>
+            <div class="post-categories">
+                <p class="categories-label"></p>
+                <p class="categories-list">
+                    {% for category in post.categories.all %}
+                    <a href="{% url 'post-filter' category.name %}" class="category-link">{{ category.name }}</a>
+                    {% endfor %}
+                </p>
+            </div>
+            <div class="post-content">
+                <p class="post-preview">{{ post.preview|censor_obscene }}</p>
+            </div>
+            <div class="post-footer">
+                <div class="rating">
+                    <span class="rating-label">Rating:</span>
+                    <span class="rating-value">{{ post.rating }}</span>
+                </div>
+                <div class="author">
+                    <span class="author-label">Author:</span>
+                    <span class="author-name">{{ post.author }}</span>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="no-posts">No posts available.</p>
+        {% endfor %}
+    </div>
+    <a href="javascript:history.back()" class="back-button">Back</a>
+</div>
+
+
+<style>
+    body {
+      background-color: #222;
+      color: #fff;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      font-size: 18px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .page-title {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    .post-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .post {
+      margin-bottom: 30px;
+      background-color: #000;
+      color: #fff;
+      padding: 30px;
+      border-radius: 20px;
+      position: relative;
+    }
+
+    .post-title {
+      font-size: 30px;
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+
+    .post-info {
+      font-size: 16px;
+      color: #888;
+      margin-bottom: 10px;
+    }
+
+    .post-categories {
+     position: absolute;
+     bottom: 0;
+     left: 50%;
+     transform: translateX(-50%);
+     text-align: center;
+     padding-bottom: 10px;
+   }
+
+    .post-content {
+      margin-bottom: 15px;
+    }
+
+    .post-preview {
+      font-size: 20px;
+    }
+
+    .post-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 16px;
+    }
+
+    .rating {
+      display: flex;
+      align-items: center;
+    }
+
+    .rating-label {
+      margin-right: 5px;
+    }
+
+    .author {
+      display: flex;
+      align-items: center;
+    }
+
+    .author-label {
+      margin-right: 5px;
+    }
+
+    .post-link {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .post-link:hover {
+      color: #888;
+      text-decoration: none;
+    }
+
+    .back-button {
+      display: inline-block;
+      padding: 8px 16px;
+      background-color: #000;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      margin-top: 20px;
+    }
+
+    .back-button:hover {
+      background-color: #111;
+      color: #fff;
+    }
+
+    .category-link {
+      color: #999;
+      text-decoration: none;
+    }
+
+    .category-link:hover {
+      text-decoration: none;
+      color: #555;
+    }
+
+    .category-link:focus,
+    .category-link:active {
+      outline: none;
+    }
+
+</style>
+{% endblock content %}

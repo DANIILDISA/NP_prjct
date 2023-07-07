@@ -1,0 +1,130 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+
+{% block title %}
+Post
+{% endblock title %}
+
+{% block content %}
+  <div class="container">
+    <h1 class="page-title">{{ post.title|censor_obscene }}</h1>
+    <div class="post-details">
+      <p class="post-info">
+        Created at: {{ post.created_at }}
+      </p>
+      <p class="post-info">
+        {% for category in post.categories.all %}
+          <a href="#" class="category-link">{{ category.name|censor_obscene }}</a>{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+      </p>
+      <div class="post-content">
+        <p>{{ post.text|censor_obscene }}</p>
+      </div>
+      <div class="post-footer">
+        <div class="rating">
+          <span class="rating-label">Rating:</span>
+          <span class="rating-value">{{ post.rating }}</span>
+        </div>
+        <div class="author">
+          <span class="author-label">Author:</span>
+          <span class="author-name">{{ post.author }}</span>
+        </div>
+      </div>
+    </div>
+    <a href="javascript:history.back()" class="back-button">Back</a>
+  </div>
+
+  <style>
+    body {
+      background-color: #222;
+      color: #fff;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      font-size: 18px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .page-title {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    .post-details {
+      margin-bottom: 30px;
+      background-color: #000;
+      color: #fff;
+      padding: 20px;
+      border-radius: 4px;
+    }
+
+    .post-info {
+      font-size: 16px;
+      color: #888;
+      margin-bottom: 10px;
+    }
+
+    .post-content {
+      margin-bottom: 15px;
+    }
+
+    .post-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 16px;
+    }
+
+    .rating {
+      display: flex;
+      align-items: center;
+    }
+
+    .rating-label {
+      margin-right: 5px;
+    }
+
+    .author {
+      display: flex;
+      align-items: center;
+    }
+
+    .author-label {
+      margin-right: 5px;
+    }
+
+    .category-link {
+      color: #999;
+      text-decoration: none;
+    }
+
+    .category-link:hover {
+      text-decoration: none;
+    }
+
+    .category-link:focus,
+    .category-link:active {
+      outline: none;
+    }
+
+    .back-button {
+      display: inline-block;
+      padding: 8px 16px;
+      background-color: #000;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      margin-top: 20px;
+    }
+
+    .back-button:hover {
+      background-color: #111;
+      color: #fff;
+    }
+
+  </style>
+{% endblock content %}
