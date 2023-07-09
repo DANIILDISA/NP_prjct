@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.flatpages',
     'np_main',
+    'django_filters',
 ]
 
 SITE_ID = 1  # change
