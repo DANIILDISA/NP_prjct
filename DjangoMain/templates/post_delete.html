@@ -1,0 +1,192 @@
+{% extends 'flatpages/default.html' %}
+
+{% block content %}
+<h1 class="page-title">Удаление поста</h1>
+<hr>
+<form action="" method="post" class="post-delete-form">
+    {% csrf_token %}
+    <p class="text_delete">Удаляем пост?</p>
+    <input type="submit" value="Delete" class="delete-button"/>
+</form>
+<a href="javascript:history.back()" class="back-button">Back</a>
+
+<style>
+
+    .text_delete {
+
+      font-family: 'Segoe UI', Arial, sans-serif;
+      font-size: 24px;
+        color: #dddddd;
+    }
+
+    /* Стили для блока content */
+    .page-title {
+      font-weight: bold;
+      margin-bottom: 24px;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      font-size: 28px;
+        color: #dddddd;
+    }
+
+    .post-delete-form {
+      margin-bottom: 20px;
+    }
+
+    /* Стили для кнопки удаления */
+    .delete-button {
+      background-color: #ff0000;
+      color: #000000;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .delete-button:hover {
+      background-color: #cc0000;
+    }
+
+    /* Стили для кнопки "Back" */
+    .back-button {
+      display: inline-block;
+      padding: 8px 16px;
+      background-color: #000;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .back-button:hover {
+      background-color: #222;
+      color: #fff;
+    }
+
+
+
+
+
+
+
+
+        body {
+      background-color: #222;
+      color: #fff;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      font-size: 18px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .page-title {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    .post-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .post {
+      margin-bottom: 30px;
+      background-color: #000;
+      color: #fff;
+      padding: 30px;
+      border-radius: 20px;
+      position: relative;
+    }
+
+    .post-title {
+      font-size: 30px;
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+
+    .post-info {
+      font-size: 16px;
+      color: #888;
+      margin-bottom: 10px;
+    }
+
+    .post-categories {
+     position: absolute;
+     bottom: 0;
+     left: 50%;
+     transform: translateX(-50%);
+     text-align: center;
+     padding-bottom: 10px;
+   }
+
+    .post-categories a:hover {
+      text-decoration: none;
+      color: #555;
+    }
+
+    .post-content {
+      margin-bottom: 15px;
+    }
+
+    .post-preview {
+      font-size: 20px;
+    }
+
+    .post-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 16px;
+    }
+
+    .rating {
+      display: flex;
+      align-items: center;
+    }
+
+    .rating-label {
+      margin-right: 5px;
+    }
+
+    .author {
+      display: flex;
+      align-items: center;
+    }
+
+    .author-label {
+      margin-right: 5px;
+    }
+
+    .post-link {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .post-link:hover {
+      color: #888;
+      text-decoration: none;
+    }
+
+    .category-link {
+      color: #999;
+      text-decoration: none;
+    }
+
+    .category-link:hover {
+      text-decoration: none;
+    }
+
+    .category-link:focus,
+    .category-link:active {
+      outline: none;
+    }
+</style>
+
+
+{% endblock content %}

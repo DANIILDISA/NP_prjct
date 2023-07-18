@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
-from django.db import models
 from django.db.models import Sum
+from django.db import models
+from django.urls import reverse
 
 
 class Category(models.Model):
@@ -46,6 +47,7 @@ class Post(models.Model):
     title = models.CharField(max_length=255)
     text = models.TextField()
     rating = models.IntegerField(default=0)
+    content = models.TextField()
 
     def calculate_rating(self):
         pass
@@ -67,6 +69,9 @@ class Post(models.Model):
             return self.text[:preview_length] + '...'
         else:
             return self.text
+
+    def get_absolute_url(self):
+        return reverse('PostDetailView', args=[str(self.id)])
 
 
 class PostCategory(models.Model):

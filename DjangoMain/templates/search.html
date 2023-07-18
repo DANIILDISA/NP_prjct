@@ -11,7 +11,22 @@ Posts
 <div class="container">
     <h1 class="page-title">Latest Posts</h1>
 
-    <a href="{% url 'post-search' %}" class="filter-button">Go to Search</a>
+<form method="get">
+    <div class="filter-section">
+        <h3 class="filter-title">Title:</h3>
+        {{ filterset.form.title }}
+    </div>
+    <div class="filter-section">
+        <h3 class="filter-title">Author:</h3>
+        {{ filterset.form.author__user__username__icontains }}
+    </div>
+    <div class="filter-section">
+        <h3 class="filter-title">Date (after):</h3>
+        <input type="date" name="{{ filterset.form.created_at__gte.name }}" value="{{ filterset.form.created_at__gte.value }}">
+    </div>
+    <button type="submit" class="filter-button">Apply Filter</button>
+</form>
+
 
     <div class="post-list">
         {% for post in posts %}
@@ -72,6 +87,18 @@ Posts
 
     <a href="javascript:history.back()" class="back-button">Back</a>
 </div>
+
+
+<script>
+    $(function() {
+        // Initialize the datepicker on the date input field
+        $("#datepicker").datepicker({
+            dateFormat: "yy-mm-dd", // Set the date format to YYYY-MM-DD
+            changeMonth: true, // Allow changing the month
+            changeYear: true, // Allow changing the year
+        });
+    });
+</script>
 
 <style>
     body {
@@ -204,7 +231,7 @@ Posts
       color: #fff;
     }
 
-    /* Pagination */
+    /* Pagination styles */
 
     .pagination {
       margin-top: 20px;
@@ -224,21 +251,24 @@ Posts
       background-color: #444;
     }
 
+    /* filter */
+    .filter-section {
+      display: inline-block;
+      margin-right: 10px; /* Добавим небольшой отступ между элементами */
+      margin-bottom: 20px; /* Добавим отступ снизу */
+    }
+
+    .filter-title {
+      margin: 0; /* Уберем отступы у заголовков */
+      margin-bottom: 15px; /* Добавим небольшой отступ между заголовком и элементом формы */
+    }
+
     .filter-button {
       display: inline-block;
       padding: 8px 16px;
       background-color: #000;
       color: #fff;
-      text-decoration: none;
-      border-radius: 4px;
-      margin-top: 20px;
     }
-
-    .filter-button:hover {
-      background-color: #111;
-      color: #fff;
-    }
-
 
 </style>
 {% endblock content %}

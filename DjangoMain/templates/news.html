@@ -70,8 +70,11 @@ Posts
     </div>
     <!-- Pagination -->
 
-    <a href="javascript:history.back()" class="back-button">Back</a>
-</div>
+    <div class="button-container">
+        <a href="{% url 'create-news' %}" class="create-post-button">Create News</a>
+        <a href="javascript:history.back()" class="back-button">Back</a>
+    </div>
+    </div>
 
 <style>
     body {
@@ -204,6 +207,29 @@ Posts
       color: #fff;
     }
 
+    .button-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .create-post-button,
+    .back-button {
+        display: inline-block;
+        padding: 8px 16px;
+        background-color: #000;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 4px;
+        margin-top: 20px;
+    }
+
+    .create-post-button:hover,
+    .back-button:hover {
+        background-color: #111;
+        color: #fff;
+    }
+
     /* Pagination */
 
     .pagination {
@@ -231,14 +257,14 @@ Posts
       color: #fff;
       text-decoration: none;
       border-radius: 4px;
-      margin-top: 20px;
+      margin-top: 10px;
+      margin-bottom: 10px;
     }
 
     .filter-button:hover {
       background-color: #111;
       color: #fff;
     }
-
 
 </style>
 {% endblock content %}

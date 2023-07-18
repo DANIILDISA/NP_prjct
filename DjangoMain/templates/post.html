@@ -1,6 +1,7 @@
 {% extends 'flatpages/default.html' %}
 
 {% load custom_filters %}
+{% load custom_filters %}
 
 {% block title %}
 Post
@@ -32,6 +33,9 @@ Post
         </div>
       </div>
     </div>
+
+    <a href="{% url 'post-update' post.pk %}" class="post-update-button">Change post</a>
+    <a href="{% url 'post-delete' post.pk %}" class="post-delete-button">Delete post</a>
     <a href="javascript:history.back()" class="back-button">Back</a>
   </div>
 
@@ -126,5 +130,35 @@ Post
       color: #fff;
     }
 
+    .post-update-button {
+      display: inline-block;
+      padding: 8px 16px;
+      background-color: #000;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      margin-top: 20px;
+    }
+
+    .post-update-button:hover {
+      background-color: #111;
+      color: #fff;
+    }
+
+    .post-delete-button {
+      display: inline-block;
+      padding: 8px 16px;
+      background-color: #000;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      margin-top: 20px;
+    }
+
+    .post-delete-button:hover {
+      background-color: #111;
+      color: #fff;
+    }
+    post-delete-button
   </style>
 {% endblock content %}

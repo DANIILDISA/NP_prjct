@@ -1,0 +1,52 @@
+{% extends 'flatpages/default.html' %}
+
+{% block content %}
+    <h1 class="page-title">Post</h1>
+    <hr>
+    <form action="" method="post" class="post-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Save" class="save-button" />
+    </form>
+    <a href="javascript:history.back()" class="back-button">Back</a>
+
+<style>
+    body {
+      background-color: #222;
+      color: #fff;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      font-size: 18px;
+    }
+
+    .page-title {
+      font-weight: bold;
+      margin-bottom: 24px;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      font-size: 28px;
+        color: #dddddd;
+    }
+
+    .back-button {
+      display: inline-block;
+      padding: 8px 16px;
+      background-color: #000;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      margin-top: 20px;
+    }
+
+    .back-button:hover {
+      background-color: #222;
+      color: #fff;
+    }
+
+    .save-button {
+      padding: 8px 16px;
+      background-color: #0f0;
+      color: #000;
+      border-radius: 4px;
+    }
+</style>
+
+{% endblock %}
