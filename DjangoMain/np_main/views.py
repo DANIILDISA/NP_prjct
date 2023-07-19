@@ -6,7 +6,6 @@ from .models import Post, Author
 from .filters import PostFilter
 from django.shortcuts import redirect
 from django.urls import reverse
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 class NewsListView(ListView):
@@ -135,13 +134,12 @@ class PostDelete(DeleteView):
     template_name = 'post_delete.html'
 
     def get_success_url(self):
-        # Determine the post type from the object being deleted
         post_type = self.object.post_type
         return reverse(f'{post_type}-list')
 
 
 class HomeView(TemplateView):
-    template_name = 'home.html'  # Имя вашего шаблона для главной страницы
+    template_name = 'home.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

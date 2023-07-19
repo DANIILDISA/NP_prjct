@@ -21,6 +21,6 @@ urlpatterns = [
 
     path('admin/', admin.site.urls),
     path('pages/', include('django.contrib.flatpages.urls')),
-    path('', include('np_main.urls')),  # Перенесем основные урлы в пустой паттерн ''
+    path('', include('np_main.urls')),
 
 ]
