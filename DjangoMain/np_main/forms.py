@@ -1,10 +1,13 @@
 from django import forms
 from .models import Post
 from django.core.exceptions import ValidationError
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 
 class PostForm(forms.ModelForm):
     title = forms.CharField(min_length=1, max_length=100)
+
     class Meta:
         model = Post
         fields = [
@@ -21,3 +24,4 @@ class PostForm(forms.ModelForm):
             })
 
         return cleaned_data
+

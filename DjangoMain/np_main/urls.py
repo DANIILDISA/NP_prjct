@@ -1,9 +1,7 @@
-from django.urls import path
-from .views import (
-    NewsListView, ArticleListView, PostDetailView, FilteredPostListView,
-    SearchView, create_post, PostUpdate, PostDelete
-)
 from . import views
+from django.urls import path, include
+from .views import RegistrationView, AccountView, become_author
+from django.contrib.auth.views import LoginView, LogoutView
 
 urlpatterns = [
     path('', views.HomeView.as_view(), name='home'),  # Добавим главную страницу
@@ -23,6 +21,9 @@ urlpatterns = [
     path('articles/<int:pk>/update/', views.PostUpdate.as_view(), name='article-update'),
     path('articles/<int:pk>/delete/', views.PostDelete.as_view(), name='article-delete'),
 
+    path('registration/', RegistrationView.as_view(), name='registration'),
+    path('login/', LoginView.as_view(template_name='login.html'), name='login'),
+    path('logout/', LogoutView.as_view(next_page='login'), name='logout'),
+    path('account/', AccountView.as_view(), name='account'),
+    path('become_author/', become_author, name='become_author'),
 ]
-
-

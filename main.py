@@ -53,3 +53,10 @@ best_article = Post.objects.order_by('-rating').first()
 * print(f"Title: {best_article.title}")
 * print(f"Preview: {best_article.preview()}")
 """
+# kefjngefweke
+# идти по крусу, надо закончить с ним.
+
+
+
+
+    # DISA - RHGUH39H39439

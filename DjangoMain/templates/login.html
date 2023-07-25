@@ -1,0 +1,128 @@
+{% extends 'flatpages/default.html' %}
+
+{% load static %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="login-form">
+        <h1>Login</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Login</button>
+        </form>
+                <a href="{% url 'registration' %}" class="register-link">Registration</a>
+
+        <div class="button-container">
+        <a href="javascript:history.back()" class="back-button">Back</a>
+    </div>
+
+    </div>
+</div>
+
+<style>
+
+    body {
+      background-color: #222;
+      color: #fff;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      font-size: 18px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+.login-form {
+    text-align: center;
+}
+
+.login-form h1 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.login-form form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-form form input[type="text"],
+.login-form form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.login-form form button {
+    padding: 10px 20px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.login-form form button:hover {
+    background-color: #111;
+}
+
+.login-form p {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.login-form p a {
+    color: #007bff;
+}
+
+.login-form p a:hover {
+    text-decoration: underline;
+}
+
+    .register-link {
+      display: inline-block;
+      padding: 8px 16px;
+      background-color: #000;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .register-link:hover {
+      background-color: #111;
+      color: #fff;
+    }
+
+    .back-button {
+      display: inline-block;
+      padding: 8px 16px;
+      background-color: #000;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      margin-top: 20px;
+    }
+
+    .back-button:hover {
+      background-color: #111;
+      color: #fff;
+    }
+
+</style>
+
+{% endblock %}

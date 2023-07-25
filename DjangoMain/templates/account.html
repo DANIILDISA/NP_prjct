@@ -1,0 +1,165 @@
+{% extends 'flatpages/default.html' %}
+
+{% load static %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="account-info">
+        <h1>Welcome to Your Account</h1>
+        <p>Hello, {{ user.username }}!</p>
+        <p>Last_login: {{ user.last_login }}</p>
+        <p>Date_joined: {{ user.date_joined }}</p>
+        <p>Email: {{ user.email }}</p>
+    </div>
+</div>
+
+    <div class="button-container">
+        <a href="{% url 'create-news' %}" class="create-post-button">Create News</a>
+        <a href="{% url 'create-article' %}" class="create-post-button">Create Article</a>
+        {% if not is_author %}
+        <form action="{% url 'become_author' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="author-button">Become an author!</button>
+        </form>
+        {% endif %}
+        <a href="{% url 'logout' %}" class="Logout-button">Logout</a>
+        <a href="javascript:history.back()" class="back-button">Back</a>
+    </div>
+
+
+
+
+
+
+
+
+
+
+<style>
+
+body {
+  background-color: #222;
+  color: #fff;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  font-size: 18px;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.account-info {
+  text-align: center;
+}
+
+.account-info h1 {
+  font-size: 28px;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.account-info p {
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+.register-link {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: #000;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.register-link:hover {
+  background-color: #111;
+  color: #fff;
+}
+
+
+
+
+    .back-button {
+      display: inline-block;
+      padding: 8px 16px;
+      background-color: #000;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      margin-top: 20px;
+    }
+
+    .back-button:hover {
+      background-color: #111;
+      color: #fff;
+    }
+
+    .button-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .create-post-button,
+    .back-button {
+        display: inline-block;
+        padding: 8px 16px;
+        background-color: #000;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 4px;
+        margin-top: 20px;
+    }
+
+    .create-post-button:hover,
+    .back-button:hover {
+        background-color: #111;
+        color: #fff;
+    }
+
+    .Logout-button {
+        display: inline-block;
+        padding: 8px 16px;
+        background-color: #000;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 4px;
+        margin-top: 20px;
+    }
+
+    .Logout-button:hover {
+        background-color: #FF0000;
+        color: #fff;
+    }
+
+
+
+
+    .author-button {
+        display: inline-block;
+        padding: 8px 16px;
+        background-color: #00ff00;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 4px;
+        margin-top: 20px;
+    }
+
+    .author-button:hover {
+        background-color: #111;
+        color: #fff;
+    }
+
+</style>
+
+{% endblock content %}

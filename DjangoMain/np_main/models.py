@@ -2,6 +2,9 @@ from django.contrib.auth.models import User
 from django.db.models import Sum
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import Group
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class Category(models.Model):
@@ -100,3 +103,10 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.text
+
+
+@receiver(post_save, sender=User)
+def add_user_to_basic_group(sender, instance, created, **kwargs):
+    if created:
+        group = Group.objects.get(name='common')
+        instance.groups.add(group)

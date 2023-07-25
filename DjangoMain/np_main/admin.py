@@ -17,6 +17,18 @@ class PostAdmin(admin.ModelAdmin):
     list_display = ['title', 'author', 'post_type', 'created_at', 'rating']
     filter_horizontal = ['categories']
 
+    def has_change_permission(self, request, obj=None):
+        # Проверьте, входит ли пользователь в группу 'authors' и имеет ли он право 'change' для Post
+        return request.user.groups.filter(name='authors').exists()
+
+    def has_add_permission(self, request):
+        # Проверяем, входит ли пользователь в группу 'authors' и имеет ли он право 'add' для Post
+        return request.user.groups.filter(name='authors').exists()
+
+    def has_delete_permission(self, request, obj=None):
+        # Проверьте, входит ли пользователь в группу 'authors' и имеет ли он право 'delete' для Post
+        return request.user.groups.filter(name='authors').exists()
+
 
 @admin.register(PostCategory)
 class PostCategoryAdmin(admin.ModelAdmin):
