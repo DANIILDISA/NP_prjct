@@ -6,12 +6,12 @@ from .filters import PostFilter
 from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import user_passes_test
+from .forms import CustomUserCreationForm
 
 
 class NewsListView(ListView):
@@ -172,7 +172,7 @@ class HomeView(TemplateView):
 
 class RegistrationView(CreateView):
     template_name = 'registration.html'
-    form_class = UserCreationForm
+    form_class = CustomUserCreationForm  # Use the custom form
     success_url = reverse_lazy('login')
 
     def form_valid(self, form):

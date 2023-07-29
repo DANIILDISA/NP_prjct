@@ -13,9 +13,10 @@ class PostForm(forms.ModelForm):
         fields = [
             'title',
             'text',
+            'categories',
         ]
 
-    def clean(self):
+    def clean_text(self):
         cleaned_data = super().clean()
         text = cleaned_data.get("text")
         if text is not None and len(text) < 10:
@@ -23,5 +24,16 @@ class PostForm(forms.ModelForm):
                 "text": "text не может быть менее 100 символов."
             })
 
+    def clean_categories(self):
+        cleaned_data = super().clean()
+        categories = cleaned_data.get("categories")
+        # надо посчитать количество категорий и если больше 2 - выкинуть raise
         return cleaned_data
 
+
+class CustomUserCreationForm(UserCreationForm):
+    email = forms.EmailField(required=True)
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
