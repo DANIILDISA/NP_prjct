@@ -54,4 +54,4 @@ best_article = Post.objects.order_by('-rating').first()
 * print(f"Preview: {best_article.preview()}")
 """
 
-# dfjdsg43u3g89439g
+# vhjzrhbnqjujdlis пароль 2

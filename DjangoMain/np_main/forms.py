@@ -16,19 +16,19 @@ class PostForm(forms.ModelForm):
             'categories',
         ]
 
-    def clean_text(self):
-        cleaned_data = super().clean()
-        text = cleaned_data.get("text")
-        if text is not None and len(text) < 10:
-            raise ValidationError({
-                "text": "text не может быть менее 100 символов."
-            })
-
-    def clean_categories(self):
-        cleaned_data = super().clean()
-        categories = cleaned_data.get("categories")
-        # надо посчитать количество категорий и если больше 2 - выкинуть raise
-        return cleaned_data
+    # def clean_text(self):
+    #     cleaned_data = super().clean()
+    #     text = cleaned_data.get("text")
+    #     if text is not None and len(text) < 10:
+    #         raise ValidationError({
+    #             "text": "text не может быть менее 100 символов."
+    #         })
+    #
+    # def clean_categories(self):
+    #     cleaned_data = super().clean()
+    #     categories = cleaned_data.get("categories")
+    #     # надо посчитать количество категорий и если больше 2 - выкинуть raise
+    #     return cleaned_data
 
 
 class CustomUserCreationForm(UserCreationForm):

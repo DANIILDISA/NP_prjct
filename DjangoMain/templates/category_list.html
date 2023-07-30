@@ -1,0 +1,26 @@
+{% extends 'flatpages/default.html' %}
+
+{% load static %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block content %}
+
+<h1>Categories</h1>
+<ul>
+  {% for category in categories %}
+    <li>
+      {{ category.name }}
+      {% if category in subscribed_categories %}
+        (Subscribed)
+      {% else %}
+        <a href="{% url 'subscribe_category' category.id %}">Subscribe</a>
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>
+
+
+{% endblock content %}

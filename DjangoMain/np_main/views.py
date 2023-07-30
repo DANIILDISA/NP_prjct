@@ -1,17 +1,59 @@
 from .forms import PostForm
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView, TemplateView
-from django.shortcuts import render
 from .models import Post, Author
 from .filters import PostFilter
-from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic.edit import CreateView
-from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import user_passes_test
+from django.shortcuts import render, redirect
+from django.views.generic.edit import CreateView
+from django.contrib.auth.models import Group
 from .forms import CustomUserCreationForm
+from .utils import subscribe_to_category
+from .models import Category
+from django.core.mail import send_mail, BadHeaderError
+
+
+class RegistrationView(CreateView):
+    template_name = 'registration.html'
+    form_class = CustomUserCreationForm
+    success_url = reverse_lazy('login')
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        group = Group.objects.get(name='common')
+        self.object.groups.add(group)
+
+        subject = "Welcome"
+        message = f"Thank you for registering"
+        from_email = "dennisburn@yandex.ru"
+        to_email = [self.object.email]
+
+        try:
+            send_mail(subject, message, from_email, to_email, fail_silently=False)
+        except BadHeaderError as e:
+            print(f"Error sending email: {e}")
+
+        return response
+
+
+@login_required
+def category_list(request):
+    categories = Category.objects.all()
+    subscribed_categories = Category.objects.filter(subscribers=request.user)
+    return render(request, 'category_list.html',
+                  {'categories': categories, 'subscribed_categories': subscribed_categories})
+
+
+@login_required
+def subscribe_category(request, category_id):
+    subscribe_to_category(request.user, category_id)
+    return redirect('category_list')
+
+
+# -------------------------------------------------------------------
 
 
 class NewsListView(ListView):
@@ -168,18 +210,6 @@ class HomeView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['greeting'] = 'Добро пожаловать на главную страницу!'
         return context
-
-
-class RegistrationView(CreateView):
-    template_name = 'registration.html'
-    form_class = CustomUserCreationForm  # Use the custom form
-    success_url = reverse_lazy('login')
-
-    def form_valid(self, form):
-        response = super().form_valid(form)
-        group = Group.objects.get(name='common')
-        self.object.groups.add(group)
-        return response
 
 
 class AccountView(LoginRequiredMixin, TemplateView):

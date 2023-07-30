@@ -1,7 +1,9 @@
 from . import views
-from django.urls import path, include
+from django.urls import path
 from .views import RegistrationView, AccountView, become_author
 from django.contrib.auth.views import LoginView, LogoutView
+
+from .views import category_list, subscribe_category
 
 urlpatterns = [
     path('', views.HomeView.as_view(), name='home'),  # Добавим главную страницу
@@ -26,4 +28,9 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(next_page='login'), name='logout'),
     path('account/', AccountView.as_view(), name='account'),
     path('become_author/', become_author, name='become_author'),
+
+    # ------------------------------------------------------------------------------
+    path('categories/', category_list, name='category_list'),
+    path('subscribe/<int:category_id>/', subscribe_category, name='subscribe_category'),
+
 ]

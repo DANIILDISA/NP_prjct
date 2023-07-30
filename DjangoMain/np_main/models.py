@@ -9,6 +9,7 @@ from django.dispatch import receiver
 
 class Category(models.Model):
     name = models.CharField(max_length=255, unique=True)
+    subscribers = models.ManyToManyField(User, related_name='subscribed_categories', blank=True)
 
     def __str__(self):
         return self.name
@@ -110,3 +111,15 @@ def add_user_to_basic_group(sender, instance, created, **kwargs):
     if created:
         group = Group.objects.get(name='common')
         instance.groups.add(group)
+
+# ---------------------------------------------------------------
+
+
+class WeeklySummary(models.Model):
+    week_start_date = models.DateField()
+    posts = models.ManyToManyField(Post, related_name='weekly_summaries')
+
+    def __str__(self):
+        return f"Weekly Summary ({self.week_start_date})"
+
+
