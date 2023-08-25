@@ -14,6 +14,7 @@ from .forms import CustomUserCreationForm
 from .utils import subscribe_to_category
 from .models import Category
 from django.core.mail import send_mail, BadHeaderError
+from .tasks import send_post_notification
 
 
 class RegistrationView(CreateView):
@@ -152,6 +153,8 @@ def create_post(request, post_type):
                 post.post_type = Post.NEWS
             elif post_type == 'article':
                 post.post_type = Post.ARTICLE
+
+            send_post_notification.delay(post.id)
 
             post.save()
             if post_type == 'article':
