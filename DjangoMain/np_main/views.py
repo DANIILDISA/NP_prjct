@@ -14,7 +14,9 @@ from .forms import CustomUserCreationForm
 from .utils import subscribe_to_category
 from .models import Category
 from django.core.mail import send_mail, BadHeaderError
-from .tasks import send_post_notification
+# from .tasks import send_post_notification
+# from django.views.decorators.cache import cache_page
+# from django.core.cache import cache
 
 
 class RegistrationView(CreateView):
@@ -101,6 +103,15 @@ class PostDetailView(DetailView):
     model = Post
     template_name = 'post.html'
     context_object_name = 'post'
+    # queryset = Post.objects.all()
+    #
+    # def get_object(self, *args, **kwargs):  # переопределяем метод получения объекта
+    #     obj = cache.get(f'post-{self.kwargs["pk"]}',
+    #                     None)
+    #     if not obj:
+    #         obj = super().get_object(queryset=self.queryset)
+    #         cache.set(f'post-{self.kwargs["pk"]}', obj)
+    #     return obj
 
 
 class FilteredPostListView(ListView):
@@ -154,7 +165,7 @@ def create_post(request, post_type):
             elif post_type == 'article':
                 post.post_type = Post.ARTICLE
 
-            send_post_notification.delay(post.id)
+            # send_post_notification.delay(post.id)
 
             post.save()
             if post_type == 'article':

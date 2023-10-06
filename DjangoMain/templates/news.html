@@ -13,6 +13,9 @@ Posts
 
     <a href="{% url 'post-search' %}" class="filter-button">Go to Search</a>
 
+<!--    {% load cache %}-->
+<!--    {% cache 60 posts %}-->
+<!--    {% endcache %}-->
     <div class="post-list">
         {% for post in posts %}
         <div class="post">
@@ -45,6 +48,7 @@ Posts
         <p class="no-posts">No posts available.</p>
         {% endfor %}
     </div>
+
 
     <!-- Pagination -->
     <div class="pagination">

@@ -5,10 +5,12 @@ from django.contrib.auth.views import LoginView, LogoutView
 
 from .views import category_list, subscribe_category
 
+from django.views.decorators.cache import cache_page
+
 urlpatterns = [
     path('', views.HomeView.as_view(), name='home'),  # Добавим главную страницу
     path('news/', views.NewsListView.as_view(), name='news-list'),
-    path('news/<int:pk>/', views.PostDetailView.as_view(), name='post-detail'),
+    path('news/<int:pk>/', (views.PostDetailView.as_view()), name='post-detail'),
     path('news/filter/<str:category>/', views.FilteredPostListView.as_view(), name='post-filter'),
     path('news/search/', views.SearchView.as_view(), name='post-search'),
     path('news/create/', views.create_post, {'post_type': 'news'}, name='create-news'),

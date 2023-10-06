@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.contrib.auth.models import Group
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+# from django.core.cache import cache
 
 
 class Category(models.Model):
@@ -77,6 +78,10 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse('PostDetailView', args=[str(self.id)])
 
+    # def save(self, *args, **kwargs):
+    #     super().save(*args, **kwargs)  # сначала вызываем метод родителя, чтобы объект сохранился
+    #     cache.delete(f'product-{self.pk}')  # затем удаляем его из кэша, чтобы сбросить его
+
 
 class PostCategory(models.Model):
     post = models.ForeignKey('Post', on_delete=models.CASCADE)
@@ -112,6 +117,7 @@ def add_user_to_basic_group(sender, instance, created, **kwargs):
         group = Group.objects.get(name='common')
         instance.groups.add(group)
 
+
 # ---------------------------------------------------------------
 
 
@@ -121,5 +127,3 @@ class WeeklySummary(models.Model):
 
     def __str__(self):
         return f"Weekly Summary ({self.week_start_date})"
-
-
